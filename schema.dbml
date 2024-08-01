@@ -1,0 +1,66 @@
+Project Lab6 {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Lab6 Database
+    **database schema for Lab6 project.**
+  '''
+}
+
+Table patients {
+  patient_id int [pk]
+  patient_name varchar
+  date_of_birth date
+  patient_sex varchar
+  patient_insurance varchar
+}
+
+Table medications {
+  drug_id int [pk]
+  prescribed_drug varchar
+  drug_maker varchar
+  drug_cost float
+}
+
+Table conditions {
+  condition_id int [pk]
+  condition varchar
+}
+
+Table patient_conditions {
+  patient_id int
+  condition_id int
+}
+
+Table physicians {
+  physician_id int [pk]
+  attending_physician varchar
+  AP_medschool_id int
+}
+
+Table medschools {
+  medschool_id int [pk]
+  AP_medschool varchar
+  AP_years_experience int
+}
+
+Table hospitals {
+  hospital_id int [pk]
+  hospital varchar
+  hospital_location varchar
+}
+
+Table prescriptions {
+  prescription_id int [pk]
+  patient_id int
+  drug_id int
+  physician_id int
+  hospital_id int
+}
+
+Ref: patient_conditions.patient_id > patients.patient_id
+Ref: patient_conditions.condition_id > conditions.condition_id
+Ref: physicians.AP_medschool_id > medschools.medschool_id
+Ref: prescriptions.patient_id > patients.patient_id
+Ref: prescriptions.drug_id > medications.drug_id
+Ref: prescriptions.physician_id > physicians.physician_id
+Ref: prescriptions.hospital_id > hospitals.hospital_id
